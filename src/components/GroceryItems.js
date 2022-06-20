@@ -1,48 +1,56 @@
 import { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { getDatabase, ref, onValue, get} from 'firebase/database';
+import { getDatabase, ref, onValue, get, increment} from 'firebase/database';
+import ItemList  from './ItemList';
+
+
 
 function GroceryItems() {
-    const [produceItems, setProduceItems] = useState([]);
-    const [itemQuantity, setItemQuantity] = useState({});
+    const [inventory, setInventory] = useState([]);
+    // const [grocerySections, setGrocerySections] = useState([]);
+    // const [itemQuantity, setItemQuantity] = useState({});
 
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
-    useEffect(() =>{
+    const arrayObj = function(object) {
+        const newArray = [];
 
-        
-        get(dbRef).then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const data = snapshot.val();
-                console.log('data:', data.produce);
-                
-                console.log(data.produce);
+        for (let key in object) {
+            newArray.push(object[`${key}`]);
+        }
 
-                
+        console.log(newArray);
+    }
 
-                for(let item in data.produce){
-                    console.log('produce items:', item);
-                    
-                    setProduceItems(item);
+    useEffect(() => {
+        const newState = []
 
-                
-                }
+        onValue(dbRef, (response) => {
+            const data = response.val();
+            // console.log(data);
+            newState.push(data);
+            setInventory(newState);
 
-
-
-            }
-        }).catch((error) => {
-            console.log(error);
+            // arrayObj(data);
         })
     }, [])
 
-
     return (
-
         <>
-            <p>grocery items</p>
+            <p>grocery items:</p>
+            <ul>
+                {
+                    inventory.map((section) =>   
+                        Object.keys(section).map((key) =>
+                            <li key={key}>
+                                {key}
+                            </li>
+                        )
+                    )
+                }
+            </ul>
+
         </>
     )
 }
