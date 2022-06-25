@@ -12,16 +12,23 @@ function App() {
       <Nav />
 
       <header>
-        <h1>Good Grocer</h1>
+        <div className='wrapper'>
+          <h1>Good Grocer</h1>
+        </div>
       </header>
       
       <main>
-        <GroceryItems />
+        <div className='wrapper'>
+
+          <GroceryItems />
+        </div>
 
       </main>
 
       <footer>
-        <p>Sophie Lai Creations (2022)</p>
+        <div className='wrapper'>
+          <p className='footerP'>Sophie Lai Creations (2022)</p>
+        </div>
       </footer>
     </div>
   );

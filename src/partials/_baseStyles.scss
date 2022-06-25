@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    flex-direction: column;
+    // background-color: $cream;
+}
+
+main {
+    min-height: 60vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.wrapper {
+    max-width: 1260px;
+    width: 80%;
+    margin: 0 auto;
+}

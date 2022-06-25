@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { getDatabase, ref, onValue, get, increment} from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
 import ItemList  from './ItemList';
 
 
@@ -36,15 +36,22 @@ function GroceryItems() {
         })
     }, [])
 
+    
+
     return (
         <>
             <p>grocery items:</p>
             <ul>
                 {
                     inventory.map((section) =>   
-                        Object.keys(section).map((key) =>
-                            <li key={key}>
-                                {key}
+                        Object.keys(section).map((sectionKey) =>
+                            <li key={sectionKey}>
+                                {sectionKey}
+                                <ul>
+                                    <ItemList 
+                                        inventory={inventory}
+                                    />
+                                </ul>
                             </li>
                         )
                     )
