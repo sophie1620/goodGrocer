@@ -13,15 +13,16 @@ function GroceryItems() {
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
-    const arrayObj = function(object) {
-        const newArray = [];
+    // const arrayObj = function(object) {
+    //     const newArray = [];
 
-        for (let key in object) {
-            newArray.push(object[`${key}`]);
-        }
+    //     for (let key in object) {
+    //         newArray.push(object[`${key}`]);
+    //         console.log(newArray);
+    //     }
 
-        console.log(newArray);
-    }
+    //     console.log(newArray);
+    // }
 
     useEffect(() => {
         const newState = []
@@ -41,22 +42,21 @@ function GroceryItems() {
     return (
         <>
             <p>grocery items:</p>
-            <ul>
                 {
-                    inventory.map((section) =>   
-                        Object.keys(section).map((sectionKey) =>
-                            <li key={sectionKey}>
-                                {sectionKey}
-                                <ul>
+                    inventory.map((section) => 
+                        Object.entries(section).map(([key, value]) => {
+                            return (
+                                <li key={key}>
+                                    {key}
                                     <ItemList 
-                                        inventory={inventory}
+                                        inventoryItems={section[key]}
                                     />
-                                </ul>
-                            </li>
-                        )
+                                </li>
+                            )
+                        })
                     )
+
                 }
-            </ul>
 
         </>
     )
